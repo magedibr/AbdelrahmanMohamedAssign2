@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <time.h>
 #include "household.h"
-
+#define EXIT 9
 
 
 
@@ -70,7 +70,7 @@ int main()
                 scanf("%s", &term);
                 v_inc = getPositiveInteger(term);
 
-                while (v_sze < 1 || v_inc < 1 || v_inc % 100 != 0)
+                while (v_sze < 1  || v_inc % 100 != 0|| v_inc < 1)
                 {
                     printf("Invalid data. Enter two positive integers separated by space/tab, first one for size of the family and second one for total annualincome. Try again\n");
                     scanf("%d", &v_sze);

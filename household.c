@@ -82,7 +82,7 @@ int getPositiveInteger(const char* str)
 } // end of getPositiveInteger function
 
 // printInfo function implementation
-void printInfo(const struct Household households[MAX])
+void printInfo( struct Household households[MAX])
 {
     FILE* outfile;
     outfile = fopen("output.txt", "w");
@@ -106,24 +106,24 @@ int getMenuChoice()
 {
     int choice;
 
-    printf("\n\nMenu\n");
-    printf("Enter your choice to display\n");
-    printf("1. Households by v_rgnion\n");
-    printf("2. Households by v_rcee\n");
-    printf("3. Average household v_income\n");
-    printf("4. Average household by v_twnn and v_rgnion\n");
-    printf("5. Average household by v_rcee\n");
-    printf("6. Percentage of households below poverty\n");
-    printf("7. Percentage of households below poverty by v_rcee\n");
-    printf("8. Percentage of households below poverty by v_twnn and v_rgnion\n");
-    printf("0. Exit\n");
+    puts("\nMenu\n"
+         "Enter your choice to display\n"
+         "1. Households by v_rgnion\n"
+         "2. Households by v_rcee\n"
+         "3. Average household v_income\n"
+         "4. Average household by v_twnn and v_rgnion\n"
+         "5. Average household by v_rcee\n"
+         "6. Percentage of households below poverty\n"
+         "7. Percentage of households below poverty by v_rcee\n"
+         "8. Percentage of households below poverty by v_twnn and v_rgnion\n"
+         "0. Exit\n");
     scanf("%d", &choice);
 
     return choice;
 } // end of getMenuChoice function
 
-// printHByrgn function implementation
-void printHByrgn(const struct Household households[MAX])
+// print by region function
+void printHByrgn( struct Household households[MAX])
 {
     int durhams = 0;
     int peels = 0;
@@ -131,23 +131,24 @@ void printHByrgn(const struct Household households[MAX])
 
     for (int i = 0; i < MAX; i++)
     {
-        if (households[i].v_rgnion == DURHAM)
-            durhams++;
 
         if (households[i].v_rgnion == PEEL)
             peels++;
+
+        if (households[i].v_rgnion == DURHAM)
+            durhams++;
 
         if (households[i].v_rgnion == YORK)
             yorks++;
     }
 
-    printf("Durham v_rgnion: %d\n", durhams);
-    printf("Peel v_rgnion: %d\n", peels);
-    printf("York v_rgnion: %d\n", yorks);
-} // end of printHByrgn function
+    printf("Peel Region: %d\n", peels);
+    printf("Durham Region : %d\n", durhams);
+    printf("York Region: %d\n", yorks);
+}
 
 // printHByrce function implementation
-void printHByrce(const struct Household households[MAX])
+void printHByrce( struct Household households[MAX])
 {
     int caucasians = 0;
     int indigenouses = 0;
@@ -180,21 +181,9 @@ void printHByrce(const struct Household households[MAX])
     printf("Others: %d\n", others);
 } // end of printHByrce function
 
-// printAvgv_income function implementation
-void printAvgv_income(const struct Household households[MAX])
-{
-    int totalv_income = 0;
 
-    for (int i = 0; i < MAX; i++)
-    {
-        totalv_income += households[i].v_income;
-    }
 
-    printf("The average household v_income: %d\n", (totalv_income / MAX));
-} // end of printAvgv_income function
-
-// printAverageByTwnAndRgn function implementation
-void printAverageByTwnAndRgn(const struct Household households[MAX])
+void printAverageByTwnAndRgn(struct Household households[MAX])
 {
     int durhamWhitby = 0, durhamWhitbyv_income = 0;
     int durhamOshawa = 0, durhamOshawav_income = 0;
@@ -242,27 +231,45 @@ void printAverageByTwnAndRgn(const struct Household households[MAX])
         }
     }
 
-    printf("Durham v_rgnion:\n");
-    printf("Average annual v_income of Oshawa: %d\n", (durhamOshawav_income / durhamOshawa));
-    printf("Average annual v_income of Whitby: %d\n", (durhamWhitbyv_income / durhamWhitby));
+    printf("Durham regnion:\n");
+    printf("Average annual income of Oshawa: %d\n", (durhamOshawav_income / durhamOshawa));
+    printf("Average annual income of Whitby: %d\n", (durhamWhitbyv_income / durhamWhitby));
 
-    printf("\nPeel v_rgnion:\n");
-    printf("Average annual v_income of Mississauga: %d\n", (peelMississaugav_income / peelMississauga));
-    printf("Average annual v_income of Brampton: %d\n", (peelBramptonv_income / peelBrampton));
+    printf("\nPeel rgeion:\n");
+    printf("Average annual income of Mississauga: %d\n", (peelMississaugav_income / peelMississauga));
+    printf("Average annual income of Brampton: %d\n", (peelBramptonv_income / peelBrampton));
 
     printf("\nYork v_rgnion:\n");
-    printf("Average annual v_income of Maple: %d\n", (yorkMapplev_income / yorkMapple));
-    printf("Average annual v_income of Vaughan: %d\n", (yorkVaughanv_income / yorkVaughan));
+    printf("Average annual income of Maple: %d\n", (yorkMapplev_income / yorkMapple));
+    printf("Average annual income of Vaughan: %d\n", (yorkVaughanv_income / yorkVaughan));
 } // end of printAverageByTwnAndRgn function
 
-// printAvgByTwnAndRgn function implementation
-void printAvgByTwnAndRgn(const struct Household households[MAX])
+// printAvgv_income function implementation
+void printAvgv_income( struct Household households[MAX])
 {
-    int caucasians = 0, caucasianv_income = 0;
-    int indigenouses = 0, indigenousv_income = 0;
-    int africanAmericans = 0, africanAmericanv_income = 0;
-    int asians = 0, asianv_income = 0;
-    int others = 0, otherv_income = 0;
+    int totalv_income = 0;
+
+    for (int i = 0; i < MAX; i++)
+    {
+        totalv_income += households[i].v_income;
+    }
+
+    printf("The average household v_income: %d\n", (totalv_income / MAX));
+}
+
+// printAvgByTwnAndRgn function implementation
+void printAvgByTwnAndRgn( struct Household households[MAX])
+{
+    int caucasians = 0, asians = 0,
+            asianv_income = 0,
+            caucasianv_income = 0,
+            indigenouses = 0,
+            indigenousv_income = 0,
+            africanAmericans = 0,
+            africanAmericanv_income = 0,
+            others = 0,
+            otherv_income = 0;
+
 
     for (int i = 0; i < MAX; i++)
     {
@@ -297,14 +304,14 @@ void printAvgByTwnAndRgn(const struct Household households[MAX])
         }
     }
 
-    printf("Average annual v_income of Caucasians: %d\n", (caucasianv_income / caucasians));
-    printf("Average annual v_income of Indigenous: %d\n", (indigenousv_income / indigenouses));
-    printf("Average annual v_income of African Americans: %d\n", (africanAmericanv_income / africanAmericans));
-    printf("Average annual v_income of Asian: %d\n", (asianv_income / asians));
-    printf("Average annual v_income of Others: %d\n", (otherv_income / others));
+    printf("Average annual income of Caucasians: %d\n", (caucasianv_income / caucasians));
+    printf("Average annual income of Indigenous: %d\n", (indigenousv_income / indigenouses));
+    printf("Average annual income of African Americans: %d\n", (africanAmericanv_income / africanAmericans));
+    printf("Average annual income of Asian: %d\n", (asianv_income / asians));
+    printf("Average annual income of Others: %d\n", (otherv_income / others));
 } // end of printAvgByTwnAndRgn function
 
-// Pvrty function implementation
+//Function to calculate poverty based on given requirments
 int Pvrty(const struct Household households[MAX], int i)
 {
     if ((households[i].v_szee == 1 && households[i].v_income < 15000) ||
@@ -313,47 +320,50 @@ int Pvrty(const struct Household households[MAX], int i)
         (households[i].v_szee == 4 && households[i].v_income < 30000) ||
         (households[i].v_szee >= 5 && households[i].v_income < 40000))
     {
-        return 1; // yes
+        //Positive poverty indicator
+        return 1;
     }
-
-    return 0; // no
-} // end of Pvrty function
+    return 0;
+}
 
 // prntBelowPvrty function implementation
-void prntBelowPvrty(const struct Household households[MAX])
+void prntBelowPvrty( struct Household households[MAX])
 {
     int underPoverty = 0;
 
     for (int i = 0; i < MAX; i++)
-    {
-        if (Pvrty(households, i) == 1)
-        {
-            underPoverty++;
+    {if (Pvrty(households, i) == 1)
+        {underPoverty++;
         }
     }
 
+    //Rounding to the nearest 100
     double result = round((double)underPoverty / MAX * 100);
+    //.2f used to format the answer to match the rounding
     printf("Number of households below poverty line are: %.2f%%\n", result);
-} // end of prntBelowPvrty function
+}
 
 // prntBelowPvrtyByRce function implementation
-void prntBelowPvrtyByRce(const struct Household households[MAX])
+void prntBelowPvrtyByRce( struct Household households[MAX])
 {
-    int caucasians = 0, caucasiansUnderPoverty = 0;
-    int indigenouses = 0, indigenousesUnderPoverty = 0;
-    int africanAmericans = 0, africanAmericansUnderPoverty = 0;
-    int asians = 0, asiansUnderPoverty = 0;
-    int others = 0, othersUnderPoverty = 0;
+
+
+    int africanAmericans = 0;
+    int africanAmericansUnderPoverty = 0;
+    int caucasians = 0;
+    int caucasiansUnderPoverty = 0;
+    int asians = 0;
+    int asiansUnderPoverty = 0;
+    int indigenouses = 0;
+    int indigenousesUnderPoverty = 0;
+    int others = 0;
+    int othersUnderPoverty = 0;
 
     for (int i = 0; i < MAX; i++)
-    {
-        if (households[i].v_rcee == CAUCASIAN)
-        {
-            caucasians++;
-
+    {if (households[i].v_rcee == CAUCASIAN)
+        {caucasians++;
             if (Pvrty(households, i) == 1)
-            {
-                caucasiansUnderPoverty++;
+            {caucasiansUnderPoverty++;
             }
         }
 
@@ -412,7 +422,7 @@ void prntBelowPvrtyByRce(const struct Household households[MAX])
 } // end of prntBelowPvrtyByRce function
 
 // prntBelowPvrtyByTwnRgn function implementation
-void prntBelowPvrtyByTwnRgn(const struct Household households[MAX])
+void prntBelowPvrtyByTwnRgn( struct Household households[MAX])
 {
     int durhamWhitby = 0, durhamWhitbyUnderPoverty = 0;
     int durhamOshawa = 0, durhamOshawaUnderPoverty = 0;
@@ -483,23 +493,32 @@ void prntBelowPvrtyByTwnRgn(const struct Household households[MAX])
             }
         }
     }
-
+    double yorkVaughanResult = round((double)yorkVaughanUnderPoverty / yorkVaughan * 100);
     double durhamWhitbyResult = round((double)durhamOshawaUnderPoverty / durhamOshawa * 100);
+    double yorkMappleResult = round((double)yorkMappleUnderPoverty / yorkMapple * 100);
     double durhamOshawaResult = round((double)durhamWhitbyUnderPoverty / durhamWhitby * 100);
     double peelMississaugaResult = round((double)peelMississaugaUnderPoverty / peelMississauga * 100);
     double peelBramptonResult = round((double)peelBramptonUnderPoverty / peelBrampton * 100);
-    double yorkMappleResult = round((double)yorkMappleUnderPoverty / yorkMapple * 100);
-    double yorkVaughanResult = round((double)yorkVaughanUnderPoverty / yorkVaughan * 100);
+
+
 
     printf("Durham v_rgnion:\n");
     printf("Number of households below poverty line Oshawa are: %.2f%%\n", durhamWhitbyResult);
     printf("Number of households below poverty line Whitby are: %.2f%%\n", durhamOshawaResult);
-
+    printf("\nYork v_rgnion:\n");
+    printf("Number of households below poverty line Maple are: %.2f%%\n", yorkMappleResult);
+    printf("Number of households below poverty line Vaughan are: %.2f%%\n", yorkVaughanResult);
     printf("\nPeel v_rgnion:\n");
     printf("Number of households below poverty line Mississauga are: %.2f%%\n", peelMississaugaResult);
     printf("Number of households below poverty line Brampton are: %.2f%%\n", peelBramptonResult);
 
-    printf("\nYork v_rgnion:\n");
-    printf("Number of households below poverty line Maple are: %.2f%%\n", yorkMappleResult);
-    printf("Number of households below poverty line Vaughan are: %.2f%%\n", yorkVaughanResult);
-} // end of prntBelowPvrtyByTwnRgn function
+
+}
+validateRcrdChoice(int v_twn){
+
+    if((v_twn < 0 || v_twn > 1) && v_twn != 9)
+    {
+        return 0;
+    }
+
+}
