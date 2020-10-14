@@ -1,8 +1,11 @@
+#include <limits.h>
 // getv_rgnion function implementation
 #include "household.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <math.h>
+
+char term[100];
 
 char* getv_rgnion(int v_rgn)
 {
@@ -20,7 +23,7 @@ char* getv_rgnion(int v_rgn)
         default:
             return "NONE";
     }
-} // end of getv_rgnion function
+}
 
 // getv_twnn function implementation
 char* getv_twnn(int v_rgn, int v_twn)
@@ -101,26 +104,7 @@ void printInfo( struct Household households[MAX])
     }
 } // end of printInfo function
 
-// getMenuChoice function implementation
-int getMenuChoice()
-{
-    int choice;
 
-    puts("\nMenu\n"
-         "Enter your choice to display\n"
-         "1. Households by v_rgnion\n"
-         "2. Households by v_rcee\n"
-         "3. Average household v_income\n"
-         "4. Average household by v_twnn and v_rgnion\n"
-         "5. Average household by v_rcee\n"
-         "6. Percentage of households below poverty\n"
-         "7. Percentage of households below poverty by v_rcee\n"
-         "8. Percentage of households below poverty by v_twnn and v_rgnion\n"
-         "0. Exit\n");
-    scanf("%d", &choice);
-
-    return choice;
-} // end of getMenuChoice function
 
 // print by region function
 void printHByrgn( struct Household households[MAX])
@@ -131,19 +115,17 @@ void printHByrgn( struct Household households[MAX])
 
     for (int i = 0; i < MAX; i++)
     {
-
-        if (households[i].v_rgnion == PEEL)
-            peels++;
-
         if (households[i].v_rgnion == DURHAM)
             durhams++;
+        if (households[i].v_rgnion == PEEL)
+            peels++;
 
         if (households[i].v_rgnion == YORK)
             yorks++;
     }
-
-    printf("Peel Region: %d\n", peels);
     printf("Durham Region : %d\n", durhams);
+    printf("Peel Region: %d\n", peels);
+
     printf("York Region: %d\n", yorks);
 }
 
@@ -366,21 +348,17 @@ void prntBelowPvrtyByRce( struct Household households[MAX])
             {caucasiansUnderPoverty++;
             }
         }
-
         if (households[i].v_rcee == INDIGENOUS)
         {
             indigenouses++;
-
             if (Pvrty(households, i) == 1)
             {
                 indigenousesUnderPoverty++;
             }
         }
-
         if (households[i].v_rcee == AFRICAN_AMERICAN)
         {
             africanAmericans++;
-
             if (Pvrty(households, i) == 1)
             {
                 africanAmericansUnderPoverty++;
@@ -390,7 +368,6 @@ void prntBelowPvrtyByRce( struct Household households[MAX])
         if (households[i].v_rcee == ASIAN)
         {
             asians++;
-
             if (Pvrty(households, i) == 1)
             {
                 asiansUnderPoverty++;
@@ -400,7 +377,6 @@ void prntBelowPvrtyByRce( struct Household households[MAX])
         if (households[i].v_rcee == OTHER)
         {
             others++;
-
             if (Pvrty(households, i) == 1)
             {
                 othersUnderPoverty++;
@@ -419,30 +395,27 @@ void prntBelowPvrtyByRce( struct Household households[MAX])
     printf("Number of households below poverty line by African American are: %.2f%%\n", africanAmericansResult);
     printf("Number of households below poverty line by Asian are: %.2f%%\n", asiansResult);
     printf("Number of households below poverty line by Other are: %.2f%%\n", othersResult);
-} // end of prntBelowPvrtyByRce function
+}
 
-// prntBelowPvrtyByTwnRgn function implementation
+//Function to iterate through households,calculate the poverty in each region then display the AVG by Town and Reigon
 void prntBelowPvrtyByTwnRgn( struct Household households[MAX])
 {
-    int durhamWhitby = 0, durhamWhitbyUnderPoverty = 0;
-    int durhamOshawa = 0, durhamOshawaUnderPoverty = 0;
-    int peelMississauga = 0, peelMississaugaUnderPoverty = 0;
     int peelBrampton = 0, peelBramptonUnderPoverty = 0;
     int yorkMapple = 0, yorkMappleUnderPoverty = 0;
     int yorkVaughan = 0, yorkVaughanUnderPoverty = 0;
-
+    int durhamWhitby = 0, durhamWhitbyUnderPoverty = 0;
+    int durhamOshawa = 0, durhamOshawaUnderPoverty = 0;
+    int peelMississauga = 0, peelMississaugaUnderPoverty = 0;
     for (int i = 0; i < MAX; i++)
     {
         if (households[i].v_rgnion == DURHAM && households[i].v_twnn == WHITBY)
         {
             durhamWhitby++;
-
             if (Pvrty(households, i) == 1)
             {
                 durhamWhitbyUnderPoverty++;
             }
         }
-
         if (households[i].v_rgnion == DURHAM && households[i].v_twnn == OSHAWA)
         {
             durhamOshawa++;
@@ -452,41 +425,33 @@ void prntBelowPvrtyByTwnRgn( struct Household households[MAX])
                 durhamOshawaUnderPoverty++;
             }
         }
-
         if (households[i].v_rgnion == PEEL && households[i].v_twnn == MISSISSAUGA)
         {
             peelMississauga++;
-
             if (Pvrty(households, i) == 1)
             {
                 peelMississaugaUnderPoverty++;
             }
         }
-
         if (households[i].v_rgnion == PEEL && households[i].v_twnn == BRAMPTON)
         {
             peelBrampton++;
-
             if (Pvrty(households, i) == 1)
             {
                 peelBramptonUnderPoverty++;
             }
         }
-
         if (households[i].v_rgnion == YORK && households[i].v_twnn == MAPPLE)
         {
             yorkMapple++;
-
             if (Pvrty(households, i) == 1)
             {
                 yorkMappleUnderPoverty++;
             }
         }
-
         if (households[i].v_rgnion == YORK && households[i].v_twnn == VAUGHAN)
         {
             yorkVaughan++;
-
             if (Pvrty(households, i) == 1)
             {
                 yorkVaughanUnderPoverty++;
@@ -499,9 +464,6 @@ void prntBelowPvrtyByTwnRgn( struct Household households[MAX])
     double durhamOshawaResult = round((double)durhamWhitbyUnderPoverty / durhamWhitby * 100);
     double peelMississaugaResult = round((double)peelMississaugaUnderPoverty / peelMississauga * 100);
     double peelBramptonResult = round((double)peelBramptonUnderPoverty / peelBrampton * 100);
-
-
-
     printf("Durham v_rgnion:\n");
     printf("Number of households below poverty line Oshawa are: %.2f%%\n", durhamWhitbyResult);
     printf("Number of households below poverty line Whitby are: %.2f%%\n", durhamOshawaResult);
@@ -514,11 +476,171 @@ void prntBelowPvrtyByTwnRgn( struct Household households[MAX])
 
 
 }
-validateRcrdChoice(int v_twn){
+// getMenuChoice function implementation
+int getInput()
+{
+    int input;
 
-    if((v_twn < 0 || v_twn > 1) && v_twn != 9)
-    {
-        return 0;
+    puts("\nMenu\n"
+         "Enter your choice to display\n"
+         "1. Households by v_region\n"
+         "2. Households by v_race\n"
+         "3. Average household income\n"
+         "4. Average household by town and region\n"
+         "5. Average household by race\n"
+         "6. Percentage of households below poverty\n"
+         "7. Percentage of households below poverty by race\n"
+         "8. Percentage of households below poverty by town and region\n"
+         "0. Exit\n");
+    scanf("%d", &input);
+    return input;
+}
+
+
+
+
+//Array of function pointers to direct user input
+void (*funcArray[9])(struct Household[])={      //missing function
+         printHByrgn,               //1
+       printHByrce,               //2
+       printAvgv_income,          //3
+         printAverageByTwnAndRgn,   //4
+        printAvgByTwnAndRgn,       //5
+   prntBelowPvrty,            //6
+     prntBelowPvrtyByRce,       //7
+         prntBelowPvrtyByTwnRgn};   //8
+
+void userChoice(struct Household households[MAX]) {
+ int input ;
+
+    do {
+       input=getInput();
+        switch (input) {
+            case 1:
+             //   (*funcArray[1])(*households);
+             printHByrgn(households);
+                break;
+
+            case 2:
+                (*funcArray[2])(households);
+                break;
+
+            case 3:
+
+                (*funcArray[3])(households);
+                break;
+
+            case 4:
+
+                (*funcArray[4])(households);
+                break;
+
+            case 5:
+                (*funcArray[5])(households);
+                break;
+
+            case 6:
+                (*funcArray[6])(households);
+                break;
+
+            case 7:
+                (*funcArray[7])(households);
+                break;
+
+            case 8:
+                (*funcArray[8])(households);
+                break;
+//
+            case 0:
+                printf("\nThank you!\n");
+                break;
+
+            default:
+                printf("\nInvalid choice!\n");
+        }
+    }while (input != 0);
+
     }
 
+    //Struct variables set to Exit value by default.
+        int v_rgn = EXIT;
+        int v_twn = EXIT;
+        int v_rce = EXIT;
+
+
+
+        int regionInput(){
+
+        printf("Enter appropriate number for the region:\n");
+        printf(" Durham (0), PEEL (1), YORK (2)\n");
+        printf("or enter 3 to skip user inputs to generate rest of the records randomly ");
+        scanf("%d", &v_rgn);
+
+        while (v_rgn != 9&& (v_rgn < 0 || v_rgn > 3) )
+        {
+            printf("Invalid data. You should enter one integer in the range 0 through 3 or enter 9 to exit. Try again\n");
+            scanf("%d", &v_rgn);
+        }
+        return v_rgn;
+
 }
+
+   int townInput(){
+       scanf("%d", &v_twn);
+
+       while ((v_twn < 0 || v_twn > 1) && v_twn != 9)
+       {
+           printf("Invalid data. You should enter one integer in the range 0 through 1 or enter 9 to exit. Try again\n");
+           scanf("%d", &v_twn);
+       }
+       return v_twn;
+
+        }
+
+   int raceInput(){
+
+       printf("Enter appropriate number for the race:\n");
+       printf(" Caucasian (0), Indigenous (1), African American (2), Asian (3), Others (4) ");
+       scanf("%d", &v_rce);
+
+       while ((v_rce < 0 || v_rce > 4) && v_rce != 9)
+       {
+           printf("Invalid data. You should enter one integer in the range 0 through 4 or enter 9 to exit. Try again\n");
+           scanf("%d", &v_rce);
+       }
+       return v_rce;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

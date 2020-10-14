@@ -8,7 +8,7 @@
 
 // constant values declaration
 #define MAX 100
-
+#define EXIT 9
 
 // Declartion of user defined data type/structure
 struct Household
@@ -22,17 +22,28 @@ struct Household
 };
 
 // enumerations declaration
-enum v_rgnion { DURHAM, PEEL, YORK };
 enum v_twnn { WHITBY = 0, OSHAWA, MISSISSAUGA = 0, BRAMPTON, MAPPLE = 0, VAUGHAN };
+enum v_rgnion { DURHAM, PEEL, YORK };
+
 enum v_rcee { CAUCASIAN, INDIGENOUS, AFRICAN_AMERICAN, ASIAN, OTHER};
 
-// Get functions
+// Input functions
+int getPositiveInteger(const char* str);
+int getInput();
 char* getv_rgnion(int v_rgn);
 char* getv_twnn(int v_rgn, int v_twn);
 char* getv_rcee(int v_rce);
-int getPositiveInteger(const char* str);
+void userChoice(struct Household households[MAX]);
+int regionInput();
+int townInput();
+int raceInput();
 
-int getMenuChoice();
+
+
+
+
+
+
 
 //Print function prototypes
 void printHByrgn( struct Household households[MAX]);
@@ -45,16 +56,6 @@ void prntBelowPvrty( struct Household households[MAX]);
 void prntBelowPvrtyByRce( struct Household households[MAX]);
 void prntBelowPvrtyByTwnRgn( struct Household households[MAX]);
 
-//Array of function pointers to direct user input
-void(*funcArray[9])(struct Household)={
-        (void (*)(struct Household)) printAverageByTwnAndRgn,
-        (void (*)(struct Household)) printHByrgn,
-        (void (*)(struct Household)) printHByrce,
-        (void (*)(struct Household)) printAvgv_income,
-        (void (*)(struct Household)) printAverageByTwnAndRgn,
-        (void (*)(struct Household)) printAvgByTwnAndRgn,
-        (void (*)(struct Household)) prntBelowPvrty,
-        (void (*)(struct Household)) prntBelowPvrtyByRce};
 
 
 
