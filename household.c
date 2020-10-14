@@ -522,7 +522,7 @@ void userChoice(struct Household households[MAX]) {
                 break;
 
             case 2:
-                (*funcArray[2])(households);
+                (*funcArray[1])(households);
                 break;
 
             case 3:
