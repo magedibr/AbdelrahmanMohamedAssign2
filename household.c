@@ -500,7 +500,7 @@ int getInput()
 
 
 //Array of function pointers to direct user input
-void (*funcArray[9])(struct Household[])={      //missing function
+void (*funcArray[8])(struct Household[])={      //missing function
          printHByrgn,               //1
        printHByrce,               //2
        printAvgv_income,          //3
@@ -518,33 +518,33 @@ void userChoice(struct Household households[MAX]) {
         switch (input) {
             case 1:
              //   (*funcArray[1])(*households);
-             printHByrgn(households);
+                (*funcArray[2])(households);
                 break;
 
             case 2:
-                (*funcArray[1])(households);
+                (*funcArray[3])(households);
                 break;
 
             case 3:
 
-                (*funcArray[3])(households);
+                (*funcArray[4])(households);
                 break;
 
             case 4:
 
-                (*funcArray[4])(households);
-                break;
-
-            case 5:
                 (*funcArray[5])(households);
                 break;
 
-            case 6:
+            case 5:
                 (*funcArray[6])(households);
                 break;
 
-            case 7:
+            case 6:
                 (*funcArray[7])(households);
+                break;
+
+            case 7:
+                (*funcArray[8])(households);
                 break;
 
             case 8:
