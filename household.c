@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <math.h>
 
-char term[100];
+
 
 char* getv_rgnion(int v_rgn)
 {
@@ -52,14 +52,8 @@ char* getv_rcee(int v_rce)
             return "Caucasian";
         case ASIAN:
             return "Asian";
-
-
         case AFRICAN_AMERICAN:
             return "African American";
-
-
-
-        case OTHER:
             return "Other";
 
         default:
@@ -85,22 +79,16 @@ int getPositiveInteger(const char* str)
 // printInfo function implementation
 void printInfo( struct Household households[MAX])
 {
-   // FILE* outfile;
-   // outfile = fopen("output.txt", "w");
-   // fprintf(outfile, "%10s%10s%15s%20s%15s%15s\n", "Number", "v_income", "Family v_szee", "v_rcee", "v_rgnion", "v_twnn");
-    for (int i = 0; i < MAX; i++)
-    {
-        fprintf(outfile, "%10d%10d%15d%20s%15s%15s\n", (i + 1), households[i].v_income, households[i].v_szee, getv_rcee(households[i].v_rcee), getv_rgnion(households[i].v_rgnion), getv_twnn(households[i].v_rgnion, households[i].v_twnn));
-    }
-    //printf("contents to file written successfully !\n");
-    //fclose(outfile);
 
-    printf("%10s%10s%15s%20s%15s%15s\n", "Number", "v_income", "Family v_szee", "v_rcee", "v_rgnion", "v_twnn");
+
+    printf("%10s%10s%15s%20s%15s%15s\n","Number","Income","Family Size","Race","Region" ,"Town");
     for (int i = 0; i < MAX; i++)
     {
         printf("%10d%10d%15d%20s%15s%15s\n", (i + 1), households[i].v_income, households[i].v_szee, getv_rcee(households[i].v_rcee), getv_rgnion(households[i].v_rgnion), getv_twnn(households[i].v_rgnion, households[i].v_twnn));
     }
-} // end of printInfo function
+
+
+}
 
 
 
@@ -179,9 +167,8 @@ void printAvgHByRce( struct Household households[MAX])
     printf("Average annual income of African Americans: %d\n", (africanAmericanIncome / africanAmericans));
     printf("Average annual income of Asian: %d\n", (asianIncome / asians));
     printf("Average annual income of Others: %d\n", (otherIncome / others));
-} // end of printAverageHouseholdByRace function
+}
 
-// printPercentageOfHouseholdsBelowPoverty function implementation
 
 //Function to calculate poverty based on given requirments
 int Pvrty(const struct Household households[MAX], int i)
@@ -198,24 +185,6 @@ int Pvrty(const struct Household households[MAX], int i)
     return 0;
 }
 
-
-
-void printPercetageOfHouseholdsBelowPoverty( struct Household households[MAX])
-{
-    int underPoverty = 0;
-
-    for (int i = 0; i < MAX; i++)
-    {
-        if (Pvrty(households, i) == 1)
-
-        {
-            underPoverty++;
-        }
-    }
-
-    double result = round((double)underPoverty / MAX* 100);
-    printf("Number of households below poverty line are: %.2f%%\n", result);
-}
 
 
 // printHByrce function implementation
@@ -325,7 +294,7 @@ void printAvgv_income( struct Household households[MAX])
         totalv_income += households[i].v_income;
     }
 
-    printf("The average household v_income: %d\n", (totalv_income / MAX));
+    printf("The average household income: %d\n", (totalv_income / MAX));
 }
 
 // printAvgByTwnAndRgn function implementation
@@ -559,8 +528,8 @@ int getInput()
 
     puts("\nMenu\n"
          "Enter your choice to display\n"
-         "1. Households by v_region\n"
-         "2. Households by v_race\n"
+         "1. Households by region\n"
+         "2. Households by race\n"
          "3. Average household income\n"
          "4. Average household by town and region\n"
          "5. Average household by race\n"
