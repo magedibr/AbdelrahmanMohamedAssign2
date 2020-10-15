@@ -1,11 +1,8 @@
 #include <stdlib.h>
-#include<math.h>
 #include <stdio.h>
 #include <time.h>
 #include "household.h"
 
-int v_sze = EXIT;
-int v_inc = EXIT;
 
 
 int main()
@@ -13,9 +10,7 @@ int main()
 
     //Array of households declared
     struct Household households[MAX];
-    struct Household* hhpt =households;
 
-    char term[20];
     int i = 0;
     int reg_choice,t_choice,race_choice,income_input,income,fam_size;
 
@@ -25,9 +20,9 @@ int main()
         printf("Data entry for household record number %d:\n\n", (i + 1));
 
         //Function to store users choice for reigon
-        reg_choice = regionInput();
+        reg_choice = RegionInput();
 
-        //exit condition
+        //DEFAULT condition
         if(reg_choice == 3)
             break;
 
@@ -43,39 +38,34 @@ int main()
 
             //Function to store and validate user choice for town
             t_choice = townInput();
-
+            int sizeIncome[3];
+            int *arrPtr = sizeIncome;
             if (t_choice >= 0 && t_choice <= 1)
             {
+                //Collect and validate Race input
                 race_choice = raceInput();
-               printf("Enter family(household) size and total annual income ( to the nearest hundred) separated by space/Tab: ");
-                scanf("%d", &fam_size);
-                scanf("%s", &term);
 
 
-                income_input = getPositiveInteger(term);
+                validateFamilyAndIncome(arrPtr);
 
-                while (fam_size < 1  || income_input % 100 != 0|| income_input < 1)
-                {
-                    printf("Invalid data. Enter two positive integers separated by space/tab, first one for size of the family and second one for total annualincome. Try again\n");
-                    scanf("%d", &fam_size);
-                    scanf("%s", &term);
-                    income_input=getPositiveInteger(term);
+                 //Assign the variables collected by sizeIncomeValidator to variables for later use
+                 fam_size= sizeIncome[0];
+                 income_input= sizeIncome[1];
 
-                }
 
-                households[i].v_rcee = race_choice;
-                households[i].v_szee = fam_size;
+                households[i].v_Race = race_choice;
+                households[i].v_Size = fam_size;
                 households[i].v_income = income_input;
-                households[i].v_rgnion = reg_choice;
-                households[i].v_twnn = t_choice;
+                households[i].v_Region = reg_choice;
+                households[i].v_Town = t_choice;
 
                 printf("\n\n");
             }
         }
 
-        if (race_choice == EXIT ||reg_choice==EXIT|| fam_size ==EXIT)
+        if (race_choice == DEFAULT ||reg_choice==DEFAULT|| fam_size ==DEFAULT)
         {
-            printf("Exiting the program..\n");
+            printf("DEFAULTing the program..\n");
             break;
         }
 
@@ -92,10 +82,10 @@ int main()
             fam_size = rand() % 9 + 1;
             income = (rand() % 400 + 100) * 100;
 
-            households[i].v_rgnion = reg_choice;
-            households[i].v_twnn = t_choice;
-            households[i].v_rcee = race_choice;
-            households[i].v_szee = fam_size;
+            households[i].v_Region = reg_choice;
+            households[i].v_Town = t_choice;
+            households[i].v_Race = race_choice;
+            households[i].v_Size = fam_size;
             households[i].v_income = income;
             i++;
         }

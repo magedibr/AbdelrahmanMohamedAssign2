@@ -5,7 +5,7 @@
 
 
 
-char* getv_rgnion(int v_rgn)
+char* getv_Region(int v_rgn)
 {
     switch (v_rgn)
     {
@@ -23,27 +23,27 @@ char* getv_rgnion(int v_rgn)
     }
 }
 
-// getv_twnn function implementation
-char* getv_twnn(int v_rgn, int v_twn)
+// getv_Town function implementation
+char* getv_Town(int v_rgn, int v_Town)
 {
-    if (v_rgn == DURHAM && v_twn == WHITBY)
+    if (v_rgn == DURHAM && v_Town == WHITBY)
         return "Whitby";
-    else if (v_rgn == DURHAM && v_twn == OSHAWA)
+    else if (v_rgn == DURHAM && v_Town == OSHAWA)
         return "Oshawa";
-    else if (v_rgn == PEEL && v_twn == MISSISSAUGA)
+    else if (v_rgn == PEEL && v_Town == MISSISSAUGA)
         return "Missisauga";
-    else if (v_rgn == PEEL && v_twn == BRAMPTON)
+    else if (v_rgn == PEEL && v_Town == BRAMPTON)
         return "Brampton";
-    else if (v_rgn == YORK && v_twn == MAPPLE)
+    else if (v_rgn == YORK && v_Town == MAPPLE)
         return "Mapple";
-    else if (v_rgn == YORK && v_twn == VAUGHAN)
+    else if (v_rgn == YORK && v_Town == VAUGHAN)
         return "Vaughan";
     else
         return "NA";
 }
 
 
-char* getv_rcee(int v_rce)
+char* getv_Race(int v_rce)
 {
     switch (v_rce)
     { case INDIGENOUS:
@@ -59,22 +59,45 @@ char* getv_rcee(int v_rce)
         default:
             return "NONE";
     }
-} // end of getv_rcee function
+} // end of getv_Race function
 
-// getPositiveInteger function implementation
-int getPositiveInteger(const char* str)
-{
-    if (str == NULL || *str == '\0')
-        return 0;
+//Pointer used to be able to change the value of the passed array
+//Function to Validate and set Famil size and income to the nearest 100
+void validateFamilyAndIncome(int *ptr) {
+    char buffer[11];
+    int ctr;
+    int Positivesize;
+    int Positiveincome;
 
-    char* chPtr;
-    strtod(str, &chPtr);
+    printf("Enter family(household) size and total annual income ( to the nearest hundred) separated by space/Tab: ");
+    fgets(buffer, sizeof(buffer), stdin);
+    ctr = sscanf(buffer, " %d%d", &Positivesize, &Positiveincome);
 
-    if (*chPtr == '\0')
-        return atoi(str);
-    else
-        return 0;
-} // end of getPositiveInteger function
+    if (ctr != 2 || Positiveincome % 100 != 0 || Positiveincome < 1 || Positivesize < 1) {
+        printf("Invalid data. Enter two positive integers separated by space/tab, first one for size of the family and second one for total annualincome. Try again\n");
+        validateFamilyAndIncome((int*) ptr);
+    }else {
+        ptr[0] = Positivesize;
+        ptr[1] = Positiveincome;
+    }
+}
+
+
+
+
+
+// end of validateFamilyAndIncome function
+
+
+
+
+
+
+
+
+
+
+
 
 // printInfo function implementation
 void printInfo( struct Household households[MAX])
@@ -84,7 +107,7 @@ void printInfo( struct Household households[MAX])
     printf("%10s%10s%15s%20s%15s%15s\n","Number","Income","Family Size","Race","Region" ,"Town");
     for (int i = 0; i < MAX; i++)
     {
-        printf("%10d%10d%15d%20s%15s%15s\n", (i + 1), households[i].v_income, households[i].v_szee, getv_rcee(households[i].v_rcee), getv_rgnion(households[i].v_rgnion), getv_twnn(households[i].v_rgnion, households[i].v_twnn));
+        printf("%10d%10d%15d%20s%15s%15s\n", (i + 1), households[i].v_income, households[i].v_Size, getv_Race(households[i].v_Race), getv_Region(households[i].v_Region), getv_Town(households[i].v_Region, households[i].v_Town));
     }
 
 
@@ -92,7 +115,7 @@ void printInfo( struct Household households[MAX])
 
 
 
-// print by region function
+// print by Region function
 void printHByrgn( struct Household households[MAX])
 {
     int durhams = 0;
@@ -101,12 +124,12 @@ void printHByrgn( struct Household households[MAX])
 
     for (int i = 0; i < MAX; i++)
     {
-        if (households[i].v_rgnion == DURHAM)
+        if (households[i].v_Region == DURHAM)
             durhams++;
-        if (households[i].v_rgnion == PEEL)
+        if (households[i].v_Region == PEEL)
             peels++;
 
-        if (households[i].v_rgnion == YORK)
+        if (households[i].v_Region == YORK)
             yorks++;
     }
     printf("Durham Region : %d\n", durhams);
@@ -131,31 +154,31 @@ void printAvgHByRce( struct Household households[MAX])
 
     for (int i = 0; i < MAX; i++)
     {
-        if (households[i].v_rcee == CAUCASIAN)
+        if (households[i].v_Race == CAUCASIAN)
         {
             caucasians++;
             caucasianIncome += households[i].v_income;
         }
 
-        if (households[i].v_rcee == INDIGENOUS)
+        if (households[i].v_Race == INDIGENOUS)
         {
             indigenouses++;
             indigenousIncome += households[i].v_income;
         }
 
-        if (households[i].v_rcee == AFRICAN_AMERICAN)
+        if (households[i].v_Race == AFRICAN_AMERICAN)
         {
             africanAmericans++;
             africanAmericanIncome += households[i].v_income;
         }
 
-        if (households[i].v_rcee == ASIAN)
+        if (households[i].v_Race == ASIAN)
         {
             asians++;
             asianIncome += households[i].v_income;
         }
 
-        if (households[i].v_rcee == OTHER)
+        if (households[i].v_Race == OTHER)
         {
             others++;
             otherIncome += households[i].v_income;
@@ -173,11 +196,11 @@ void printAvgHByRce( struct Household households[MAX])
 //Function to calculate poverty based on given requirments
 int Pvrty(const struct Household households[MAX], int i)
 {
-    if ((households[i].v_szee == 1 && households[i].v_income < 15000) ||
-        (households[i].v_szee == 2 && households[i].v_income < 20000) ||
-        (households[i].v_szee == 3 && households[i].v_income < 25000) ||
-        (households[i].v_szee == 4 && households[i].v_income < 30000) ||
-        (households[i].v_szee >= 5 && households[i].v_income < 40000))
+    if ((households[i].v_Size == 1 && households[i].v_income < 15000) ||
+        (households[i].v_Size == 2 && households[i].v_income < 20000) ||
+        (households[i].v_Size == 3 && households[i].v_income < 25000) ||
+        (households[i].v_Size == 4 && households[i].v_income < 30000) ||
+        (households[i].v_Size >= 5 && households[i].v_income < 40000))
     {
         //Positive poverty indicator
         return 1;
@@ -198,19 +221,19 @@ void printHByrce( struct Household households[MAX])
 
     for (int i = 0; i < MAX; i++)
     {
-        if (households[i].v_rcee == CAUCASIAN)
+        if (households[i].v_Race == CAUCASIAN)
             caucasians++;
 
-        if (households[i].v_rcee == INDIGENOUS)
+        if (households[i].v_Race == INDIGENOUS)
             indigenouses++;
 
-        if (households[i].v_rcee == AFRICAN_AMERICAN)
+        if (households[i].v_Race == AFRICAN_AMERICAN)
             africanAmericans++;
 
-        if (households[i].v_rcee == ASIAN)
+        if (households[i].v_Race == ASIAN)
             asians++;
 
-        if (households[i].v_rcee == OTHER)
+        if (households[i].v_Race == OTHER)
             others++;
     }
 
@@ -223,7 +246,7 @@ void printHByrce( struct Household households[MAX])
 
 
 
-void printAverageByTwnAndRgn(struct Household households[MAX])
+void printAverageByTownAndRgn(struct Household households[MAX])
 {
     int durhamWhitby = 0, durhamWhitbyv_income = 0;
     int durhamOshawa = 0, durhamOshawav_income = 0;
@@ -234,37 +257,37 @@ void printAverageByTwnAndRgn(struct Household households[MAX])
 
     for (int i = 0; i < MAX; i++)
     {
-        if (households[i].v_rgnion == DURHAM && households[i].v_twnn == WHITBY)
+        if (households[i].v_Region == DURHAM && households[i].v_Town == WHITBY)
         {
             durhamWhitby++;
             durhamWhitbyv_income += households[i].v_income;
         }
 
-        if (households[i].v_rgnion == DURHAM && households[i].v_twnn == OSHAWA)
+        if (households[i].v_Region == DURHAM && households[i].v_Town == OSHAWA)
         {
             durhamOshawa++;
             durhamOshawav_income += households[i].v_income;
         }
 
-        if (households[i].v_rgnion == PEEL && households[i].v_twnn == MISSISSAUGA)
+        if (households[i].v_Region == PEEL && households[i].v_Town == MISSISSAUGA)
         {
             peelMississauga++;
             peelMississaugav_income += households[i].v_income;
         }
 
-        if (households[i].v_rgnion == PEEL && households[i].v_twnn == BRAMPTON)
+        if (households[i].v_Region == PEEL && households[i].v_Town == BRAMPTON)
         {
             peelBrampton++;
             peelBramptonv_income += households[i].v_income;
         }
 
-        if (households[i].v_rgnion == YORK && households[i].v_twnn == MAPPLE)
+        if (households[i].v_Region == YORK && households[i].v_Town == MAPPLE)
         {
             yorkMapple++;
             yorkMapplev_income += households[i].v_income;
         }
 
-        if (households[i].v_rgnion == YORK && households[i].v_twnn == VAUGHAN)
+        if (households[i].v_Region == YORK && households[i].v_Town == VAUGHAN)
         {
             yorkVaughan++;
             yorkVaughanv_income += households[i].v_income;
@@ -279,10 +302,10 @@ void printAverageByTwnAndRgn(struct Household households[MAX])
     printf("Average annual income of Mississauga: %d\n", (peelMississaugav_income / peelMississauga));
     printf("Average annual income of Brampton: %d\n", (peelBramptonv_income / peelBrampton));
 
-    printf("\nYork v_rgnion:\n");
+    printf("\nYork v_Region:\n");
     printf("Average annual income of Maple: %d\n", (yorkMapplev_income / yorkMapple));
     printf("Average annual income of Vaughan: %d\n", (yorkVaughanv_income / yorkVaughan));
-} // end of printAverageByTwnAndRgn function
+} // end of printAverageByTownAndRgn function
 
 // printAvgv_income function implementation
 void printAvgv_income( struct Household households[MAX])
@@ -297,8 +320,8 @@ void printAvgv_income( struct Household households[MAX])
     printf("The average household income: %d\n", (totalv_income / MAX));
 }
 
-// printAvgByTwnAndRgn function implementation
-void printAvgByTwnAndRgn( struct Household households[MAX])
+// printAvgByTownAndRgn function implementation
+void printAvgByTownAndRgn( struct Household households[MAX])
 {
     int caucasians = 0, asians = 0,
             asianv_income = 0,
@@ -313,31 +336,31 @@ void printAvgByTwnAndRgn( struct Household households[MAX])
 
     for (int i = 0; i < MAX; i++)
     {
-        if (households[i].v_rcee == CAUCASIAN)
+        if (households[i].v_Race == CAUCASIAN)
         {
             caucasians++;
             caucasianv_income += households[i].v_income;
         }
 
-        if (households[i].v_rcee == INDIGENOUS)
+        if (households[i].v_Race == INDIGENOUS)
         {
             indigenouses++;
             indigenousv_income += households[i].v_income;
         }
 
-        if (households[i].v_rcee == AFRICAN_AMERICAN)
+        if (households[i].v_Race == AFRICAN_AMERICAN)
         {
             africanAmericans++;
             africanAmericanv_income += households[i].v_income;
         }
 
-        if (households[i].v_rcee == ASIAN)
+        if (households[i].v_Race == ASIAN)
         {
             asians++;
             asianv_income += households[i].v_income;
         }
 
-        if (households[i].v_rcee == OTHER)
+        if (households[i].v_Race == OTHER)
         {
             others++;
             otherv_income += households[i].v_income;
@@ -349,7 +372,7 @@ void printAvgByTwnAndRgn( struct Household households[MAX])
     printf("Average annual income of African Americans: %d\n", (africanAmericanv_income / africanAmericans));
     printf("Average annual income of Asian: %d\n", (asianv_income / asians));
     printf("Average annual income of Others: %d\n", (otherv_income / others));
-} // end of printAvgByTwnAndRgn function
+} // end of printAvgByTownAndRgn function
 
 
 
@@ -387,13 +410,13 @@ void prntBelowPvrtyByRce( struct Household households[MAX])
     int othersUnderPoverty = 0;
 
     for (int i = 0; i < MAX; i++)
-    {if (households[i].v_rcee == CAUCASIAN)
+    {if (households[i].v_Race == CAUCASIAN)
         {caucasians++;
             if (Pvrty(households, i) == 1)
             {caucasiansUnderPoverty++;
             }
         }
-        if (households[i].v_rcee == INDIGENOUS)
+        if (households[i].v_Race == INDIGENOUS)
         {
             indigenouses++;
             if (Pvrty(households, i) == 1)
@@ -401,7 +424,7 @@ void prntBelowPvrtyByRce( struct Household households[MAX])
                 indigenousesUnderPoverty++;
             }
         }
-        if (households[i].v_rcee == AFRICAN_AMERICAN)
+        if (households[i].v_Race == AFRICAN_AMERICAN)
         {
             africanAmericans++;
             if (Pvrty(households, i) == 1)
@@ -410,7 +433,7 @@ void prntBelowPvrtyByRce( struct Household households[MAX])
             }
         }
 
-        if (households[i].v_rcee == ASIAN)
+        if (households[i].v_Race == ASIAN)
         {
             asians++;
             if (Pvrty(households, i) == 1)
@@ -419,7 +442,7 @@ void prntBelowPvrtyByRce( struct Household households[MAX])
             }
         }
 
-        if (households[i].v_rcee == OTHER)
+        if (households[i].v_Race == OTHER)
         {
             others++;
             if (Pvrty(households, i) == 1)
@@ -442,8 +465,8 @@ void prntBelowPvrtyByRce( struct Household households[MAX])
     printf("Number of households below poverty line by Other are: %.2f%%\n", othersResult);
 }
 
-//Function to iterate through households,calculate the poverty in each region then display the AVG by Town and Reigon
-void prntBelowPvrtyByTwnRgn( struct Household households[MAX])
+//Function to iterate through households,calculate the poverty in each Region then display the AVG by Town and Reigon
+void prntBelowPvrtyByTownRgn( struct Household households[MAX])
 {
     int peelBrampton = 0, peelBramptonUnderPoverty = 0;
     int yorkMapple = 0, yorkMappleUnderPoverty = 0;
@@ -453,7 +476,7 @@ void prntBelowPvrtyByTwnRgn( struct Household households[MAX])
     int peelMississauga = 0, peelMississaugaUnderPoverty = 0;
     for (int i = 0; i < MAX; i++)
     {
-        if (households[i].v_rgnion == DURHAM && households[i].v_twnn == WHITBY)
+        if (households[i].v_Region == DURHAM && households[i].v_Town == WHITBY)
         {
             durhamWhitby++;
             if (Pvrty(households, i) == 1)
@@ -461,7 +484,7 @@ void prntBelowPvrtyByTwnRgn( struct Household households[MAX])
                 durhamWhitbyUnderPoverty++;
             }
         }
-        if (households[i].v_rgnion == DURHAM && households[i].v_twnn == OSHAWA)
+        if (households[i].v_Region == DURHAM && households[i].v_Town == OSHAWA)
         {
             durhamOshawa++;
 
@@ -470,7 +493,7 @@ void prntBelowPvrtyByTwnRgn( struct Household households[MAX])
                 durhamOshawaUnderPoverty++;
             }
         }
-        if (households[i].v_rgnion == PEEL && households[i].v_twnn == MISSISSAUGA)
+        if (households[i].v_Region == PEEL && households[i].v_Town == MISSISSAUGA)
         {
             peelMississauga++;
             if (Pvrty(households, i) == 1)
@@ -478,7 +501,7 @@ void prntBelowPvrtyByTwnRgn( struct Household households[MAX])
                 peelMississaugaUnderPoverty++;
             }
         }
-        if (households[i].v_rgnion == PEEL && households[i].v_twnn == BRAMPTON)
+        if (households[i].v_Region == PEEL && households[i].v_Town == BRAMPTON)
         {
             peelBrampton++;
             if (Pvrty(households, i) == 1)
@@ -486,7 +509,7 @@ void prntBelowPvrtyByTwnRgn( struct Household households[MAX])
                 peelBramptonUnderPoverty++;
             }
         }
-        if (households[i].v_rgnion == YORK && households[i].v_twnn == MAPPLE)
+        if (households[i].v_Region == YORK && households[i].v_Town == MAPPLE)
         {
             yorkMapple++;
             if (Pvrty(households, i) == 1)
@@ -494,7 +517,7 @@ void prntBelowPvrtyByTwnRgn( struct Household households[MAX])
                 yorkMappleUnderPoverty++;
             }
         }
-        if (households[i].v_rgnion == YORK && households[i].v_twnn == VAUGHAN)
+        if (households[i].v_Region == YORK && households[i].v_Town == VAUGHAN)
         {
             yorkVaughan++;
             if (Pvrty(households, i) == 1)
@@ -509,13 +532,13 @@ void prntBelowPvrtyByTwnRgn( struct Household households[MAX])
     double durhamOshawaResult = round((double)durhamWhitbyUnderPoverty / durhamWhitby * 100);
     double peelMississaugaResult = round((double)peelMississaugaUnderPoverty / peelMississauga * 100);
     double peelBramptonResult = round((double)peelBramptonUnderPoverty / peelBrampton * 100);
-    printf("Durham v_rgnion:\n");
+    printf("Durham v_Region:\n");
     printf("Number of households below poverty line Oshawa are: %.2f%%\n", durhamWhitbyResult);
     printf("Number of households below poverty line Whitby are: %.2f%%\n", durhamOshawaResult);
-    printf("\nYork v_rgnion:\n");
+    printf("\nYork v_Region:\n");
     printf("Number of households below poverty line Maple are: %.2f%%\n", yorkMappleResult);
     printf("Number of households below poverty line Vaughan are: %.2f%%\n", yorkVaughanResult);
-    printf("\nPeel v_rgnion:\n");
+    printf("\nPeel v_Region:\n");
     printf("Number of households below poverty line Mississauga are: %.2f%%\n", peelMississaugaResult);
     printf("Number of households below poverty line Brampton are: %.2f%%\n", peelBramptonResult);
 
@@ -528,15 +551,15 @@ int getInput()
 
     puts("\nMenu\n"
          "Enter your choice to display\n"
-         "1. Households by region\n"
+         "1. Households by Region\n"
          "2. Households by race\n"
          "3. Average household income\n"
-         "4. Average household by town and region\n"
+         "4. Average household by town and Region\n"
          "5. Average household by race\n"
          "6. Percentage of households below poverty\n"
          "7. Percentage of households below poverty by race\n"
-         "8. Percentage of households below poverty by town and region\n"
-         "0. Exit\n");
+         "8. Percentage of households below poverty by town and Region\n"
+         "0. DEFAULT\n");
     scanf("%d", &input);
     return input;
 }
@@ -550,12 +573,12 @@ void (*funcArray[9])(struct Household[])={
          printHByrgn,
          printHByrce,
          printAvgv_income,
-         printAverageByTwnAndRgn,
+         printAverageByTownAndRgn,
          printAvgHByRce,
-        printAvgByTwnAndRgn,
+        printAvgByTownAndRgn,
         prntBelowPvrty,
         prntBelowPvrtyByRce,
-        prntBelowPvrtyByTwnRgn};
+        prntBelowPvrtyByTownRgn};
 
 void userChoice(struct Household households[MAX]) {
  int input ;
@@ -608,23 +631,23 @@ void userChoice(struct Household households[MAX]) {
 
     }
 
-    //Struct variables set to Exit value by default.
-        int v_rgn = EXIT;
-        int v_twn = EXIT;
-        int v_rce = EXIT;
+    //Struct variables set to DEFAULT value by default.
+        int v_rgn = DEFAULT;
+        int v_Town = DEFAULT;
+        int v_rce = DEFAULT;
 
 
 
-        int regionInput(){
+        int RegionInput(){
 
-        printf("Enter appropriate number for the region:\n");
+        printf("Enter appropriate number for the Region:\n");
         printf(" Durham (0), PEEL (1), YORK (2)\n");
         printf("or enter 3 to skip user inputs to generate rest of the records randomly ");
         scanf("%d", &v_rgn);
 
         while (v_rgn != 9&& (v_rgn < 0 || v_rgn > 3) )
         {
-            printf("Invalid data. You should enter one integer in the range 0 through 3 or enter 9 to exit. Try again\n");
+            printf("Invalid data. You should enter one integer in the range 0 through 3 or enter 9 to DEFAULT. Try again\n");
             scanf("%d", &v_rgn);
         }
         return v_rgn;
@@ -632,14 +655,14 @@ void userChoice(struct Household households[MAX]) {
 }
 
    int townInput(){
-       scanf("%d", &v_twn);
+       scanf("%d", &v_Town);
 
-       while ((v_twn < 0 || v_twn > 1) && v_twn != 9)
+       while ((v_Town < 0 || v_Town > 1) && v_Town != 9)
        {
-           printf("Invalid data. You should enter one integer in the range 0 through 1 or enter 9 to exit. Try again\n");
-           scanf("%d", &v_twn);
+           printf("Invalid data. You should enter one integer in the range 0 through 1 or enter 9 to DEFAULT. Try again\n");
+           scanf("%d", &v_Town);
        }
-       return v_twn;
+       return v_Town;
 
         }
 
@@ -651,7 +674,7 @@ void userChoice(struct Household households[MAX]) {
 
        while ((v_rce < 0 || v_rce > 4) && v_rce != 9)
        {
-           printf("Invalid data. You should enter one integer in the range 0 through 4 or enter 9 to exit. Try again\n");
+           printf("Invalid data. You should enter one integer in the range 0 through 4 or enter 9 to DEFAULT. Try again\n");
            scanf("%d", &v_rce);
        }
        return v_rce;
