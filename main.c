@@ -10,18 +10,17 @@ int main()
 
     //Array of households declared
     struct Household households[MAX];
-
     int i = 0;
     int reg_choice,t_choice,race_choice,income_input,income,fam_size;
 
-    srand(time(0));
+
     while (i < MAX)
     {
         printf("Data entry for household record number %d:\n\n", (i + 1));
 
         //Function to store users choice for reigon
         reg_choice = RegionInput();
-
+        srand(time(0));
         //DEFAULT condition
         if(reg_choice == 3)
             break;
@@ -45,13 +44,11 @@ int main()
                 //Collect and validate Race input
                 race_choice = raceInput();
 
-
                 validateFamilyAndIncome(arrPtr);
 
                  //Assign the variables collected by sizeIncomeValidator to variables for later use
                  fam_size= sizeIncome[0];
                  income_input= sizeIncome[1];
-
 
                 households[i].v_Race = race_choice;
                 households[i].v_Size = fam_size;
