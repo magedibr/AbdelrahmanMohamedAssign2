@@ -1,5 +1,3 @@
-#include <limits.h>
-// getv_rgnion function implementation
 #include "household.h"
 #include <stdlib.h>
 #include <stdio.h>
@@ -87,15 +85,15 @@ int getPositiveInteger(const char* str)
 // printInfo function implementation
 void printInfo( struct Household households[MAX])
 {
-    FILE* outfile;
-    outfile = fopen("output.txt", "w");
-    fprintf(outfile, "%10s%10s%15s%20s%15s%15s\n", "Number", "v_income", "Family v_szee", "v_rcee", "v_rgnion", "v_twnn");
+   // FILE* outfile;
+   // outfile = fopen("output.txt", "w");
+   // fprintf(outfile, "%10s%10s%15s%20s%15s%15s\n", "Number", "v_income", "Family v_szee", "v_rcee", "v_rgnion", "v_twnn");
     for (int i = 0; i < MAX; i++)
     {
         fprintf(outfile, "%10d%10d%15d%20s%15s%15s\n", (i + 1), households[i].v_income, households[i].v_szee, getv_rcee(households[i].v_rcee), getv_rgnion(households[i].v_rgnion), getv_twnn(households[i].v_rgnion, households[i].v_twnn));
     }
-    printf("contents to file written successfully !\n");
-    fclose(outfile);
+    //printf("contents to file written successfully !\n");
+    //fclose(outfile);
 
     printf("%10s%10s%15s%20s%15s%15s\n", "Number", "v_income", "Family v_szee", "v_rcee", "v_rgnion", "v_twnn");
     for (int i = 0; i < MAX; i++)
@@ -578,25 +576,25 @@ int getInput()
 
 
 //Array of function pointers to direct user input
-void (*funcArray[8])(struct Household[])={      //missing function
-         printHByrgn,               //1ok
-       printHByrce,               //2ok
-       printAvgv_income,          //3ok
-         printAverageByTwnAndRgn,   //4ok
-         printAvgHByRce,//ok
-        printAvgByTwnAndRgn,       //5ok
-        prntBelowPvrty,            //6
-        prntBelowPvrtyByRce,       //7
-        printPOfHouseholdsBelowPoverty};//8
+void (*funcArray[9])(struct Household[])={
+
+         printHByrgn,
+         printHByrce,
+         printAvgv_income,
+         printAverageByTwnAndRgn,
+         printAvgHByRce,
+        printAvgByTwnAndRgn,
+        prntBelowPvrty,
+        prntBelowPvrtyByRce,
+        prntBelowPvrtyByTwnRgn};
 
 void userChoice(struct Household households[MAX]) {
  int input ;
-
     do {
        input=getInput();
         switch (input) {
             case 1:
-             //   (*funcArray[1])(*households);
+
                 (*funcArray[0])(households);
                 break;
 
@@ -619,11 +617,11 @@ void userChoice(struct Household households[MAX]) {
                 break;
 
             case 6:
-                (*funcArray[7])(households);
+                (*funcArray[6])(households);
                 break;
 
             case 7:
-                (*funcArray[8])(households);
+                (*funcArray[7])(households);
                 break;
 
             case 8:

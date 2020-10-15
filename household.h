@@ -39,8 +39,6 @@ int townInput();
 int raceInput();
 
 
-void printPOfHouseholdsBelowPoverty( struct Household households[MAX]);
-
 
 
 
