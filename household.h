@@ -39,7 +39,7 @@ int townInput();
 int raceInput();
 
 
-
+void printPOfHouseholdsBelowPoverty( struct Household households[MAX]);
 
 
 
@@ -48,6 +48,7 @@ int raceInput();
 //Print function prototypes
 void printHByrgn( struct Household households[MAX]);
 void printHByrce( struct Household households[MAX]);
+void printAvgHByRce( struct Household households[MAX]);
 void printAvgv_income( struct Household households[MAX]);
 void printAverageByTwnAndRgn( struct Household households[MAX]);
 void printAvgByTwnAndRgn (struct Household households[MAX]);
