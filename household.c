@@ -549,7 +549,7 @@ int getInput()
          "0. DEFAULT\n");
   scanf("%d", &input);
     return input;
-//if (i ==1)return input;else puts("Wrong coice please try again");
+
 }
 
 
@@ -570,7 +570,7 @@ void (*funcArray[9])(struct Household[])={
 
 void userChoice(struct Household households[MAX]) {
    int input ;
-    do {puts("Enter");
+    do {
         input=getInput();
         switch (input) {
             case 1:
@@ -624,54 +624,49 @@ int v_rgn = DEFAULT;
 int v_Town = DEFAULT;
 int v_rce = DEFAULT;
 
-
-
-
-
-
-void clearingData() {
+//Function to be able to clear data after user entry. Used in while loops to allow user to reenter data until validation occurs.
+void purgeData() {
     int delete;
     while ((delete = getchar()) != '\n' && delete != EOF) //  End of File
     {}
 }
 
-
-
-
-
-
+//Region Validation
 int RegionInput(){
 
     printf("Enter appropriate number for the Region:\n");
     printf(" Durham (0), PEEL (1), YORK (2)\n");
-    printf("or enter 3 to skip user inputs to generate rest of the records randomly ");
+    printf("or enter 3 to skip user inputs to generate rest of the records randomly\n");
 while (1) {
         //Validate numeric input    Validate Range
     if (scanf("%d", &v_rgn) == 1 || (v_rgn > 0 && v_rgn < 4)) return v_rgn;
     printf("Invalid data. You should enter one integer in the range 0 through 3 or enter 9 to DEFAULT. Try again\n");
-   clearingData();
+   purgeData();
 }
 
 }
-// 0-1
+//Town input validation
 int townInput(){
     while (1) {
         //Validate numeric input    Validate Range
         if (scanf("%d", &v_Town) == 1 || (v_Town >= 0 && v_Town <=1 )) return v_Town;
         printf("Invalid data. You should enter one integer in the range 0 through 1 or enter 9 to DEFAULT. Try again\n");
-        clearingData();
+        purgeData();
     }
 }
-//0-1
+
+
+
+//Race input validation
 int raceInput(){
 
     printf("Enter appropriate number for the race:\n");
-    printf(" Caucasian (0), Indigenous (1), African American (2), Asian (3), Others (4) ");
+    printf(" Caucasian (0), Indigenous (1), African American (2), Asian (3), Others (4) \n");
     while (1) {
         //Validate numeric input    Validate Range
         if (scanf("%d", &v_rce) == 1 || (v_rgn > 0 && v_rgn < 5)) return v_rce;
         printf("Invalid data. You should enter one integer in the range 0 through 4 or enter 9 to DEFAULT. Try again\n");
-        clearingData();
+        purgeData();
     }
 }
 
