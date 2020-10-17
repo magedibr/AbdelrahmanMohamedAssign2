@@ -26,7 +26,8 @@ enum v_Town { WHITBY = 0, OSHAWA, MISSISSAUGA = 0, BRAMPTON, MAPPLE = 0, VAUGHAN
 enum v_Region { DURHAM, PEEL, YORK };
 enum v_Race { CAUCASIAN, INDIGENOUS, AFRICAN_AMERICAN, ASIAN, OTHER};
 
-// Input functions
+// Input functions Prototypes
+void clearingData();
 void validateFamilyAndIncome(int *ptr);
 int getInput();
 char* getv_Region(int v_rgn);

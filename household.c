@@ -59,10 +59,10 @@ char* getv_Race(int v_rce)
         default:
             return "NONE";
     }
-} // end of getv_Race function
+}
 
-//Pointer used to be able to change the value of the passed array
-//Function to Validate and set Famil size and income to the nearest 100
+//Pointer function used to be able to change the value of the passed array
+//Function to Validate and set Family size and income to the nearest 100
 void validateFamilyAndIncome(int *ptr) {
     char buffer[11];
     int ctr;
@@ -86,19 +86,6 @@ void validateFamilyAndIncome(int *ptr) {
 
 
 
-// end of validateFamilyAndIncome function
-
-
-
-
-
-
-
-
-
-
-
-
 // printInfo function implementation
 void printInfo( struct Household households[MAX])
 {
@@ -112,7 +99,6 @@ void printInfo( struct Household households[MAX])
 
 
 }
-
 
 
 // print by Region function
@@ -193,7 +179,7 @@ void printAvgHByRce( struct Household households[MAX])
 }
 
 
-//Function to calculate poverty based on given requirments
+//Function to calculate poverty based on given requirements
 int Pvrty(const struct Household households[MAX], int i)
 {
     if ((households[i].v_Size == 1 && households[i].v_income < 15000) ||
@@ -242,7 +228,7 @@ void printHByrce( struct Household households[MAX])
     printf("African American: %d\n", africanAmericans);
     printf("Asian: %d\n", asians);
     printf("Others: %d\n", others);
-} // end of printHByrce function
+}
 
 
 
@@ -305,7 +291,7 @@ void printAverageByTownAndRgn(struct Household households[MAX])
     printf("\nYork v_Region:\n");
     printf("Average annual income of Maple: %d\n", (yorkMapplev_income / yorkMapple));
     printf("Average annual income of Vaughan: %d\n", (yorkVaughanv_income / yorkVaughan));
-} // end of printAverageByTownAndRgn function
+}
 
 // printAvgv_income function implementation
 void printAvgv_income( struct Household households[MAX])
@@ -323,7 +309,8 @@ void printAvgv_income( struct Household households[MAX])
 // printAvgByTownAndRgn function implementation
 void printAvgByTownAndRgn( struct Household households[MAX])
 {
-    int caucasians = 0, asians = 0,
+    int caucasians = 0,
+            asians = 0,
             asianv_income = 0,
             caucasianv_income = 0,
             indigenouses = 0,
@@ -465,7 +452,7 @@ void prntBelowPvrtyByRce( struct Household households[MAX])
     printf("Number of households below poverty line by Other are: %.2f%%\n", othersResult);
 }
 
-//Function to iterate through households,calculate the poverty in each Region then display the AVG by Town and Reigon
+//Function to iterate through households,calculate the poverty in each Region then display the AVG by Town and region
 void prntBelowPvrtyByTownRgn( struct Household households[MAX])
 {
     int peelBrampton = 0, peelBramptonUnderPoverty = 0;
@@ -560,8 +547,9 @@ int getInput()
          "7. Percentage of households below poverty by race\n"
          "8. Percentage of households below poverty by town and Region\n"
          "0. DEFAULT\n");
-    scanf("%d", &input);
+  scanf("%d", &input);
     return input;
+//if (i ==1)return input;else puts("Wrong coice please try again");
 }
 
 
@@ -570,20 +558,20 @@ int getInput()
 //Array of function pointers to direct user input
 void (*funcArray[9])(struct Household[])={
 
-         printHByrgn,
-         printHByrce,
-         printAvgv_income,
-         printAverageByTownAndRgn,
-         printAvgHByRce,
+        printHByrgn,
+        printHByrce,
+        printAvgv_income,
+        printAverageByTownAndRgn,
+        printAvgHByRce,
         printAvgByTownAndRgn,
         prntBelowPvrty,
         prntBelowPvrtyByRce,
         prntBelowPvrtyByTownRgn};
 
 void userChoice(struct Household households[MAX]) {
- int input ;
-    do {
-       input=getInput();
+   int input ;
+    do {puts("Enter");
+        input=getInput();
         switch (input) {
             case 1:
 
@@ -629,58 +617,63 @@ void userChoice(struct Household households[MAX]) {
         }
     }while (input != 0);
 
-    }
-
-    //Struct variables set to DEFAULT value by default.
-        int v_rgn = DEFAULT;
-        int v_Town = DEFAULT;
-        int v_rce = DEFAULT;
-
-
-
-        int RegionInput(){
-
-        printf("Enter appropriate number for the Region:\n");
-        printf(" Durham (0), PEEL (1), YORK (2)\n");
-        printf("or enter 3 to skip user inputs to generate rest of the records randomly ");
-        scanf("%d", &v_rgn);
-
-        while (v_rgn != 9&& (v_rgn < 0 || v_rgn > 3) )
-        {
-            printf("Invalid data. You should enter one integer in the range 0 through 3 or enter 9 to DEFAULT. Try again\n");
-            scanf("%d", &v_rgn);
-        }
-        return v_rgn;
-
 }
 
-   int townInput(){
-       scanf("%d", &v_Town);
-
-       while ((v_Town < 0 || v_Town > 1) && v_Town != 9)
-       {
-           printf("Invalid data. You should enter one integer in the range 0 through 1 or enter 9 to DEFAULT. Try again\n");
-           scanf("%d", &v_Town);
-       }
-       return v_Town;
-
-        }
-
-   int raceInput(){
-
-       printf("Enter appropriate number for the race:\n");
-       printf(" Caucasian (0), Indigenous (1), African American (2), Asian (3), Others (4) ");
-       scanf("%d", &v_rce);
-
-       while ((v_rce < 0 || v_rce > 4) && v_rce != 9)
-       {
-           printf("Invalid data. You should enter one integer in the range 0 through 4 or enter 9 to DEFAULT. Try again\n");
-           scanf("%d", &v_rce);
-       }
-       return v_rce;
-        }
+//Struct variables set to DEFAULT value by default.
+int v_rgn = DEFAULT;
+int v_Town = DEFAULT;
+int v_rce = DEFAULT;
 
 
+
+
+
+
+void clearingData() {
+    int delete;
+    while ((delete = getchar()) != '\n' && delete != EOF) //  End of File
+    {}
+}
+
+
+
+
+
+
+int RegionInput(){
+
+    printf("Enter appropriate number for the Region:\n");
+    printf(" Durham (0), PEEL (1), YORK (2)\n");
+    printf("or enter 3 to skip user inputs to generate rest of the records randomly ");
+while (1) {
+        //Validate numeric input    Validate Range
+    if (scanf("%d", &v_rgn) == 1 || (v_rgn > 0 && v_rgn < 4)) return v_rgn;
+    printf("Invalid data. You should enter one integer in the range 0 through 3 or enter 9 to DEFAULT. Try again\n");
+   clearingData();
+}
+
+}
+// 0-1
+int townInput(){
+    while (1) {
+        //Validate numeric input    Validate Range
+        if (scanf("%d", &v_Town) == 1 || (v_Town >= 0 && v_Town <=1 )) return v_Town;
+        printf("Invalid data. You should enter one integer in the range 0 through 1 or enter 9 to DEFAULT. Try again\n");
+        clearingData();
+    }
+}
+//0-1
+int raceInput(){
+
+    printf("Enter appropriate number for the race:\n");
+    printf(" Caucasian (0), Indigenous (1), African American (2), Asian (3), Others (4) ");
+    while (1) {
+        //Validate numeric input    Validate Range
+        if (scanf("%d", &v_rce) == 1 || (v_rgn > 0 && v_rgn < 5)) return v_rce;
+        printf("Invalid data. You should enter one integer in the range 0 through 4 or enter 9 to DEFAULT. Try again\n");
+        clearingData();
+    }
+}
 
 
 

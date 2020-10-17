@@ -3,7 +3,12 @@
 #include <time.h>
 #include "household.h"
 
-
+/*
+ *
+ * i<MAX could be I<2
+ * Check the whole if(v_income == EXIT||...)
+ *
+ * */
 
 int main()
 {
@@ -18,8 +23,9 @@ int main()
     {
         printf("Data entry for household record number %d:\n\n", (i + 1));
 
-        //Function to store users choice for reigon
+        //Function to store users choice for region
         reg_choice = RegionInput();
+printf("%d",reg_choice);
         srand(time(0));
         //DEFAULT condition
         if(reg_choice == 3)
@@ -62,7 +68,7 @@ int main()
 
         if (race_choice == DEFAULT ||reg_choice==DEFAULT|| fam_size ==DEFAULT)
         {
-            printf("DEFAULTing the program..\n");
+            printf("Exiting  program..\n");
             break;
         }
 
@@ -88,7 +94,7 @@ int main()
         }
     }
 
-   printInfo(households);
-   userChoice(households);
+    printInfo(households);
+    userChoice(households);
 
     return 0;}
