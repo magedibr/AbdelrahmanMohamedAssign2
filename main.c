@@ -1,5 +1,5 @@
 //Create by: Abdelrahman Mohamed
-//Date:16/10/2020
+//Date: 16/10/2020
 //Main Method and user interaction
 
 #include <stdlib.h>

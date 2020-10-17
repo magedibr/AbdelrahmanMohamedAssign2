@@ -5,7 +5,6 @@
 #ifndef ABDELRAHMANMOHAMEDASSIGN2_HOUSEHOLD_H
 #define ABDELRAHMANMOHAMEDASSIGN2_HOUSEHOLD_H
 
-
 // constant values declaration
 #define MAX 100
 #define DEFAULT 9
