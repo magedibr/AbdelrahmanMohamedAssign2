@@ -284,11 +284,11 @@ void printAverageByTownAndRgn(struct Household households[MAX])
         }
     }
 
-    printf("Durham regnion:\n");
+    printf("Durham region:\n");
     printf("Average annual income of Oshawa: %d\n", (durhamOshawav_income / durhamOshawa));
     printf("Average annual income of Whitby: %d\n", (durhamWhitbyv_income / durhamWhitby));
 
-    printf("\nPeel rgeion:\n");
+    printf("\nPeel region:\n");
     printf("Average annual income of Mississauga: %d\n", (peelMississaugav_income / peelMississauga));
     printf("Average annual income of Brampton: %d\n", (peelBramptonv_income / peelBrampton));
 
@@ -536,8 +536,7 @@ void prntBelowPvrtyByTownRgn( struct Household households[MAX])
 
 }
 // getMenuChoice function implementation
-int getInput()
-{
+int getInput() {
     int input;
 
     puts("\nMenu\n"
@@ -551,7 +550,7 @@ int getInput()
          "7. Percentage of households below poverty by race\n"
          "8. Percentage of households below poverty by town and Region\n"
          "0. Exit\n");
-  scanf("%d", &input);
+    scanf("%d", &input);
     return input;
 
 }
@@ -618,6 +617,7 @@ void userChoice(struct Household households[MAX]) {
 
             default:
                 printf("\nInvalid choice!\n");
+                purgeData();
         }
     }while (input != 0);
 
