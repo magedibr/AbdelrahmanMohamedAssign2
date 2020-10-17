@@ -25,7 +25,7 @@ int main()
 
         //Function to store users choice for region
         reg_choice = RegionInput();
-printf("%d",reg_choice);
+        printf("%d",reg_choice);
         srand(time(0));
         //DEFAULT condition
         if(reg_choice == 3)
@@ -52,9 +52,9 @@ printf("%d",reg_choice);
 
                 validateFamilyAndIncome(arrPtr);
 
-                 //Assign the variables collected by sizeIncomeValidator to variables for later use
-                 fam_size= sizeIncome[0];
-                 income_input= sizeIncome[1];
+                //Assign the variables collected by sizeIncomeValidator to variables for later use
+                fam_size= sizeIncome[0];
+                income_input= sizeIncome[1];
 
                 households[i].v_Race = race_choice;
                 households[i].v_Size = fam_size;

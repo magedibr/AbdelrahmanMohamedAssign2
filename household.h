@@ -27,7 +27,7 @@ enum v_Region { DURHAM, PEEL, YORK };
 enum v_Race { CAUCASIAN, INDIGENOUS, AFRICAN_AMERICAN, ASIAN, OTHER};
 
 // Input functions Prototypes
-void clearingData();
+void purgeData();
 void validateFamilyAndIncome(int *ptr);
 int getInput();
 char* getv_Region(int v_rgn);

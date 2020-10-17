@@ -180,7 +180,7 @@ void printAvgHByRce( struct Household households[MAX])
 
 
 //Function to calculate poverty based on given requirements
-int Pvrty(const struct Household households[MAX], int i)
+int Pvrty( struct Household households[MAX], int i)
 {
     if ((households[i].v_Size == 1 && households[i].v_income < 15000) ||
         (households[i].v_Size == 2 && households[i].v_income < 20000) ||
