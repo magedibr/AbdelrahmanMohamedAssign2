@@ -1,14 +1,12 @@
+//Create by: Abdelrahman Mohamed
+//Date:16/10/2020
+//Main Method and user interaction
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <time.h>
 #include "household.h"
 
-/*
- *
- * i<MAX could be I<2
- * Check the whole if(v_income == EXIT||...)
- *
- * */
 
 int main()
 {

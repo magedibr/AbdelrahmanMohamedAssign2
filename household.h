@@ -1,6 +1,6 @@
-//
-// Created by Abdelrahman Mohamed on 2020-10-13.
-//
+//Create by: Abdelrahman Mohamed
+//Date:16/10/2020
+//Function protorypes plus Struct and enum declared
 
 #ifndef ABDELRAHMANMOHAMEDASSIGN2_HOUSEHOLD_H
 #define ABDELRAHMANMOHAMEDASSIGN2_HOUSEHOLD_H

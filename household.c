@@ -1,3 +1,7 @@
+//Create by: Abdelrahman Mohamed
+//Date:16/10/2020
+//Function implementations
+
 #include "household.h"
 #include <stdlib.h>
 #include <stdio.h>
@@ -19,7 +23,7 @@ char* getv_Region(int v_rgn)
             return "York";
 
         default:
-            return "NONE";
+            return "NA";
     }
 }
 
@@ -57,7 +61,7 @@ char* getv_Race(int v_rce)
             return "Other";
 
         default:
-            return "NONE";
+            return "NA";
     }
 }
 
@@ -546,7 +550,7 @@ int getInput()
          "6. Percentage of households below poverty\n"
          "7. Percentage of households below poverty by race\n"
          "8. Percentage of households below poverty by town and Region\n"
-         "0. DEFAULT\n");
+         "0. Exit\n");
   scanf("%d", &input);
     return input;
 
@@ -627,7 +631,7 @@ int v_rce = DEFAULT;
 //Function to be able to clear data after user entry. Used in while loops to allow user to reenter data until validation occurs.
 void purgeData() {
     int delete;
-    while ((delete = getchar()) != '\n' && delete != EOF) //  End of File
+    while ((delete = getchar()) != '\n' && delete != EOF)
     {}
 }
 
@@ -640,7 +644,7 @@ int RegionInput(){
 while (1) {
         //Validate numeric input    Validate Range
     if (scanf("%d", &v_rgn) == 1 || (v_rgn > 0 && v_rgn < 4)) return v_rgn;
-    printf("Invalid data. You should enter one integer in the range 0 through 3 or enter 9 to DEFAULT. Try again\n");
+    printf("Invalid data. You should enter one integer in the range 0 through 3 or enter 9 to exit Try again\n");
    purgeData();
 }
 
@@ -650,7 +654,7 @@ int townInput(){
     while (1) {
         //Validate numeric input    Validate Range
         if (scanf("%d", &v_Town) == 1 || (v_Town >= 0 && v_Town <=1 )) return v_Town;
-        printf("Invalid data. You should enter one integer in the range 0 through 1 or enter 9 to DEFAULT. Try again\n");
+        printf("Invalid data. You should enter one integer in the range 0 through 1 or enter 9 to exit. Try again\n");
         purgeData();
     }
 }
@@ -665,7 +669,7 @@ int raceInput(){
     while (1) {
         //Validate numeric input    Validate Range
         if (scanf("%d", &v_rce) == 1 || (v_rgn > 0 && v_rgn < 5)) return v_rce;
-        printf("Invalid data. You should enter one integer in the range 0 through 4 or enter 9 to DEFAULT. Try again\n");
+        printf("Invalid data. You should enter one integer in the range 0 through 4 or enter 9 to exit. Try again\n");
         purgeData();
     }
 }
