@@ -73,12 +73,15 @@ void validateFamilyAndIncome(int *ptr) {
     int Positivesize;
     int Positiveincome;
 
+
+    purgeData();
     printf("Enter family(household) size and total annual income ( to the nearest hundred) separated by space/Tab: ");
     fgets(buffer, sizeof(buffer), stdin);
     ctr = sscanf(buffer, " %d%d", &Positivesize, &Positiveincome);
 
     if (ctr != 2 || Positiveincome % 100 != 0 || Positiveincome < 1 || Positivesize < 1) {
-        printf("Invalid data. Enter two positive integers separated by space/tab, first one for size of the family and second one for total annualincome. Try again\n");
+        printf("Invalid data. Enter two positive integers separated by space/tab, first one for size of the family and second one for total annual income. Try again\n");
+
         validateFamilyAndIncome((int*) ptr);
     }else {
         ptr[0] = Positivesize;

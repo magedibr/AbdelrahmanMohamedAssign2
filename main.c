@@ -17,7 +17,7 @@ int main()
     int reg_choice,t_choice,race_choice,income_input,income,fam_size;
 
 
-    while (i < MAX)
+    while (i < 3)
     {
         printf("Data entry for household record number %d:\n\n", (i + 1));
 

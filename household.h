@@ -7,6 +7,7 @@
 
 // constant values declaration
 #define MAX 100
+
 #define DEFAULT 9
 
 // Declaration of user defined data type/structure
